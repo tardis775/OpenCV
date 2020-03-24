@@ -42,9 +42,12 @@
             this.button4 = new System.Windows.Forms.Button();
             this.pictureBoxIpl3 = new OpenCvSharp.UserInterface.PictureBoxIpl();
             this.button5 = new System.Windows.Forms.Button();
+            this.btn_find = new System.Windows.Forms.Button();
+            this.pictureBoxIpl4 = new OpenCvSharp.UserInterface.PictureBoxIpl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -172,12 +175,32 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // btn_find
+            // 
+            this.btn_find.Location = new System.Drawing.Point(1424, 353);
+            this.btn_find.Name = "btn_find";
+            this.btn_find.Size = new System.Drawing.Size(75, 23);
+            this.btn_find.TabIndex = 11;
+            this.btn_find.Text = "Find";
+            this.btn_find.UseVisualStyleBackColor = true;
+            this.btn_find.Click += new System.EventHandler(this.btn_find_Click);
+            // 
+            // pictureBoxIpl4
+            // 
+            this.pictureBoxIpl4.Location = new System.Drawing.Point(160, 65);
+            this.pictureBoxIpl4.Name = "pictureBoxIpl4";
+            this.pictureBoxIpl4.Size = new System.Drawing.Size(1200, 900);
+            this.pictureBoxIpl4.TabIndex = 12;
+            this.pictureBoxIpl4.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1916, 1041);
+            this.Controls.Add(this.pictureBoxIpl4);
+            this.Controls.Add(this.btn_find);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.pictureBoxIpl3);
             this.Controls.Add(this.button4);
@@ -197,6 +220,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -216,6 +240,8 @@
         private System.Windows.Forms.Button button4;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl3;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_find;
+        private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl4;
     }
 }
 

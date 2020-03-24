@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
+using OpenCvSharp.CPlusPlus;
+using Point = System.Drawing.Point;
 
 namespace Vision
 {
@@ -33,6 +35,7 @@ namespace Vision
         IplImage src;
         IplImage ipl;
         IplImage canny;
+        IplImage match;
 
         #region 참고
 
@@ -85,6 +88,10 @@ namespace Vision
             //if (src != null) Cv.ReleaseImage(src);
             Cv.Flip(src, src, FlipMode.Y);
             pictureBoxIpl1.ImageIpl = src;
+            TrySearch();
+            pictureBoxIpl4.ImageIpl = match;
+            pictureBoxIpl4.BringToFront();
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -169,6 +176,59 @@ namespace Vision
             canny = new IplImage(src.Size, BitDepth.U8, 1);
             Cv.Canny(src, canny, 100, 255);
             return canny;
+        }
+        #endregion
+
+        #region 캡처이미지 추출 버튼
+        private void btn_find_Click(object sender, EventArgs e)
+        {
+            //Mat Screen = null;
+            TrySearch();
+            //if (match != null) Cv.ReleaseImage(match);
+            pictureBoxIpl4.ImageIpl = match;
+            pictureBoxIpl4.BringToFront();
+        }
+        public IplImage TrySearch()
+        {
+            match = pictureBoxIpl1.ImageIpl;
+            IplImage templit = new IplImage("../capture/추출.png", LoadMode.AnyColor); ;
+            IplImage tm = new IplImage(new CvSize(match.Size.Width - templit.Size.Width + 1, match.Size.Height - templit.Size.Height + 1), BitDepth.F32, 1);
+
+            CvPoint minloc, maxloc;
+            Double minval, maxval;
+
+            Cv.MatchTemplate(match, templit, tm, MatchTemplateMethod.SqDiffNormed);
+
+            Cv.MinMaxLoc(tm, out minval, out maxval, out minloc, out maxloc);
+
+            Cv.DrawRect(match, new CvRect(minloc.X, minloc.Y, templit.Width, templit.Height), CvColor.Red, 3);
+
+            return match;
+
+            //Mat screen = null, find = null ,res = null;
+            //try
+            //{
+            //    screen = OpenCvSharp.Extensions.BitmapConverter.ToMat((Bitmap)pictureBoxIpl2.Image);
+            //    find = OpenCvSharp.Extensions.BitmapConverter.ToMat(new Bitmap(System.Windows.Forms.Application.StartupPath + @"\../capture/추출.png"));
+
+            //    //이미지 유사도 찾기
+            //    res = screen.MatchTemplate(find, MatchTemplateMethod.CCoeffNormed);
+            //    double min, max = 0;
+            //    //최소, 최대값 리턴
+            //    Cv2.MinMaxLoc(res, out min, out max);
+
+            //    Console.WriteLine("검색 유사도 : " + max);
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e.Message.ToString());
+            //}
+            //finally
+            //{
+            //    screen.Dispose();
+            //    find.Dispose();
+            //    res.Dispose();
+            //}
         }
         #endregion
 

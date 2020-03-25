@@ -44,10 +44,16 @@
             this.button5 = new System.Windows.Forms.Button();
             this.btn_find = new System.Windows.Forms.Button();
             this.pictureBoxIpl4 = new OpenCvSharp.UserInterface.PictureBoxIpl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -71,7 +77,7 @@
             // btn_save
             // 
             this.btn_save.Font = new System.Drawing.Font("굴림", 20F);
-            this.btn_save.Location = new System.Drawing.Point(1554, 221);
+            this.btn_save.Location = new System.Drawing.Point(1604, 151);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(200, 100);
             this.btn_save.TabIndex = 1;
@@ -139,7 +145,7 @@
             // btn_Live
             // 
             this.btn_Live.Font = new System.Drawing.Font("굴림", 20F);
-            this.btn_Live.Location = new System.Drawing.Point(1554, 71);
+            this.btn_Live.Location = new System.Drawing.Point(1398, 151);
             this.btn_Live.Name = "btn_Live";
             this.btn_Live.Size = new System.Drawing.Size(200, 100);
             this.btn_Live.TabIndex = 7;
@@ -193,12 +199,63 @@
             this.pictureBoxIpl4.TabIndex = 12;
             this.pictureBoxIpl4.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(211, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 12);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(255, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 12);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(299, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 12);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "label3";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(343, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 12);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "label4";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(1186, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(718, 69);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 18;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1916, 1041);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBoxIpl4);
             this.Controls.Add(this.btn_find);
             this.Controls.Add(this.button5);
@@ -221,7 +278,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -242,6 +301,11 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btn_find;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

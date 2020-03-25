@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
+using OpenCvSharp;
+using Point = System.Drawing.Point;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using OpenCvSharp;
 using OpenCvSharp.CPlusPlus;
-using Point = System.Drawing.Point;
 
 namespace Vision
 {
-    #region STUDY
-    //OPENCV는 RGB가 아니라 BGR임
-
-    #endregion
     public partial class Form1 : Form
     {
         #region 전역 변수
@@ -31,6 +27,7 @@ namespace Vision
         int nPictureBoxY;
         string now;
 
+        Bitmap bmp;
         CvCapture capture;
         IplImage src;
         IplImage ipl;
@@ -91,7 +88,6 @@ namespace Vision
             TrySearch();
             pictureBoxIpl4.ImageIpl = match;
             pictureBoxIpl4.BringToFront();
-
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -202,6 +198,26 @@ namespace Vision
             Cv.MinMaxLoc(tm, out minval, out maxval, out minloc, out maxloc);
 
             Cv.DrawRect(match, new CvRect(minloc.X, minloc.Y, templit.Width, templit.Height), CvColor.Red, 3);
+
+            if (pictureBoxIpl1.Image != null)
+            {
+                Bitmap croppedBitmap = new Bitmap(pictureBoxIpl1.Image);
+                croppedBitmap = croppedBitmap.Clone(
+                        new Rectangle(minloc.X, minloc.Y, templit.Width, templit.Height),
+                        System.Drawing.Imaging.PixelFormat.DontCare);
+                pictureBox1.Image = croppedBitmap;
+            }
+            Image img = pictureBoxIpl1.Image;
+            bmp = img as Bitmap;
+            Color pixelColor = bmp.GetPixel(600, 450);
+            //label1.TopLevelControl = true;
+            label1.Text = pixelColor.ToString();
+            pictureBox1.BackColor = pixelColor;
+
+            label1.Text = minloc.X.ToString();
+            label2.Text = minloc.Y.ToString();
+            label3.Text = templit.Width.ToString();
+            label4.Text = templit.Height.ToString();
 
             return match;
 
@@ -410,7 +426,5 @@ namespace Vision
         }
         #endregion
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
     }
 }

@@ -84,15 +84,27 @@ namespace Vision
             src = capture.QueryFrame();
             //if (src != null) Cv.ReleaseImage(src);
             Cv.Flip(src, src, FlipMode.Y);
+
             pictureBoxIpl1.ImageIpl = src;
-            TrySearch();
-            pictureBoxIpl4.ImageIpl = match;
-            pictureBoxIpl4.BringToFront();
+
+            if(pictureBoxIpl2.ImageIpl != null)
+            {
+                pictureBoxIpl2.BringToFront();
+            }
+            else
+            {
+                TrySearch();
+
+                pictureBoxIpl4.ImageIpl = match;
+                pictureBoxIpl4.BringToFront();
+                pictureBox1.BringToFront();
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Cv.ReleaseImage(src);
+
             if (src != null) src.Dispose();
         }
         #endregion
@@ -109,15 +121,19 @@ namespace Vision
         private void btn_save_Click(object sender, EventArgs e)
         {
             string save_name = DateTime.Now.ToString("yy.MM.dd_hhmmss");
+
             now = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+
             Cv.SaveImage("../capture/" + save_name + ".png", src);
 
             ipl = new IplImage("../capture/" + save_name + ".png", LoadMode.AnyColor);
+
             pictureBoxIpl2.ImageIpl = ipl;
+
             pntCurrentPicbox.X = 0;
             pntCurrentPicbox.Y = 0;
 
-            pictureBoxIpl2.BringToFront();
+            //pictureBoxIpl2.BringToFront();
 
             Enabled_true();
             //MessageBox.Show("사진을 저장했습니다.");
@@ -155,38 +171,43 @@ namespace Vision
             {
                 Console.WriteLine(ex.ToString());
             }
+
             pictureBoxIpl2.ImageIpl = null;
             pictureBoxIpl1.BringToFront();
+
             Enabled_false();
         }
         #endregion
 
         #region 캡처이미지 흑백 버튼
-        private void button4_Click(object sender, EventArgs e)
-        {
-            pictureBoxIpl2.ImageIpl = CannyEdge(pictureBoxIpl2.ImageIpl);
-            pictureBoxIpl2.BringToFront();
-        }
-        public IplImage CannyEdge(IplImage src)
-        {
-            canny = new IplImage(src.Size, BitDepth.U8, 1);
-            Cv.Canny(src, canny, 100, 255);
-            return canny;
-        }
+        //이벤트 등록해야함
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    pictureBoxIpl2.ImageIpl = CannyEdge(pictureBoxIpl2.ImageIpl);
+        //    pictureBoxIpl2.BringToFront();
+        //}
+        //public IplImage CannyEdge(IplImage src)
+        //{
+        //    canny = new IplImage(src.Size, BitDepth.U8, 1);
+        //    Cv.Canny(src, canny, 100, 255);
+        //    return canny;
+        //}
         #endregion
 
         #region 캡처이미지 추출 버튼
-        private void btn_find_Click(object sender, EventArgs e)
-        {
-            //Mat Screen = null;
-            TrySearch();
-            //if (match != null) Cv.ReleaseImage(match);
-            pictureBoxIpl4.ImageIpl = match;
-            pictureBoxIpl4.BringToFront();
-        }
+        //find 버튼 이벤트 활성화
+        //private void btn_find_Click(object sender, EventArgs e)
+        //{
+        //    //Mat Screen = null;
+        //    TrySearch();
+        //    //if (match != null) Cv.ReleaseImage(match);
+        //    pictureBoxIpl4.ImageIpl = match;
+        //    pictureBoxIpl4.BringToFront();
+        //}
         public IplImage TrySearch()
         {
             match = pictureBoxIpl1.ImageIpl;
+
             IplImage templit = new IplImage("../capture/추출.png", LoadMode.AnyColor); ;
             IplImage tm = new IplImage(new CvSize(match.Size.Width - templit.Size.Width + 1, match.Size.Height - templit.Size.Height + 1), BitDepth.F32, 1);
 
@@ -194,9 +215,7 @@ namespace Vision
             Double minval, maxval;
 
             Cv.MatchTemplate(match, templit, tm, MatchTemplateMethod.SqDiffNormed);
-
             Cv.MinMaxLoc(tm, out minval, out maxval, out minloc, out maxloc);
-
             Cv.DrawRect(match, new CvRect(minloc.X, minloc.Y, templit.Width, templit.Height), CvColor.Red, 3);
 
             if (pictureBoxIpl1.Image != null)
@@ -207,20 +226,18 @@ namespace Vision
                         System.Drawing.Imaging.PixelFormat.DontCare);
                 pictureBox1.Image = croppedBitmap;
             }
-            Image img = pictureBoxIpl1.Image;
-            bmp = img as Bitmap;
-            Color pixelColor = bmp.GetPixel(600, 450);
-            //label1.TopLevelControl = true;
-            label1.Text = pixelColor.ToString();
-            pictureBox1.BackColor = pixelColor;
 
-            label1.Text = minloc.X.ToString();
-            label2.Text = minloc.Y.ToString();
-            label3.Text = templit.Width.ToString();
-            label4.Text = templit.Height.ToString();
+            Image img = pictureBoxIpl1.Image;
+
+            bmp = img as Bitmap;
+
+            Color pixelColor = bmp.GetPixel(600, 450);
+
+            pictureBox1.BackColor = pixelColor;
 
             return match;
 
+            #region 참고
             //Mat screen = null, find = null ,res = null;
             //try
             //{
@@ -245,6 +262,7 @@ namespace Vision
             //    find.Dispose();
             //    res.Dispose();
             //}
+            #endregion
         }
         #endregion
 
@@ -267,6 +285,7 @@ namespace Vision
 
             g.DrawImage(img, 0, 0, bmpMod.Width, bmpMod.Height);
             g.Dispose();
+
             pictureBoxIpl2.Image = bmpMod;
             
             #region 참고
@@ -301,7 +320,9 @@ namespace Vision
 
             g.DrawImage(img, 0, 0, bmpmod.Width, bmpmod.Height);
             g.Dispose();
+
             pictureBoxIpl2.Image = bmpmod;
+
             #region 참고
             //-------------------------------------------------------------------------------------------------
             //Bitmap bit = (Bitmap)pictureBoxIpl2.Image;
@@ -411,7 +432,6 @@ namespace Vision
             button4.Enabled = true;
         }
 
-
         private void button5_Click(object sender, EventArgs e)
         {
 
@@ -425,6 +445,7 @@ namespace Vision
                 }
         }
         #endregion
+
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

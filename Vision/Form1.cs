@@ -28,10 +28,11 @@ namespace Vision
         string now;
 
         Bitmap bmp;
+
         CvCapture capture;
+
         IplImage src;
         IplImage ipl;
-        IplImage canny;
         IplImage match;
 
         #region 참고
@@ -41,9 +42,9 @@ namespace Vision
         //private Bitmap img;
         //private Rectangle imgRect;
         //private Point clickPoint;
-
         //private double ratio = 1.0F;
 
+        //IplImage canny;
         //IplImage zoom;
 
         #endregion
@@ -117,93 +118,7 @@ namespace Vision
         }
         #endregion
 
-        #region 캡처이미지 저장 버튼
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            string save_name = DateTime.Now.ToString("yy.MM.dd_hhmmss");
-
-            now = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-
-            Cv.SaveImage("../capture/" + save_name + ".png", src);
-
-            ipl = new IplImage("../capture/" + save_name + ".png", LoadMode.AnyColor);
-
-            pictureBoxIpl2.ImageIpl = ipl;
-
-            pntCurrentPicbox.X = 0;
-            pntCurrentPicbox.Y = 0;
-
-            //pictureBoxIpl2.BringToFront();
-
-            Enabled_true();
-            //MessageBox.Show("사진을 저장했습니다.");
-        }
-        #endregion
-
-        #region 캡처이미지 삭제 버튼
-        private void btn_del_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //삭제할 파일들이 있는 경로 설정
-                string deletePath = (@"../capture/");
-                DirectoryInfo di = new DirectoryInfo(deletePath);
-
-                //삭제할 경로에 파일이 존재한다면
-                if (di.Exists)
-                {
-                    FileInfo[] files = di.GetFiles();
-
-                    foreach (FileInfo file in files)
-                    {
-                        //날짜비교
-                        if (now.CompareTo(file.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")) == 0)
-                        {
-                            if (System.Text.RegularExpressions.Regex.IsMatch(file.Name, ".png"))
-                            {
-                                File.Delete(di + "\\" + file.Name);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            pictureBoxIpl2.ImageIpl = null;
-            pictureBoxIpl1.BringToFront();
-
-            Enabled_false();
-        }
-        #endregion
-
-        #region 캡처이미지 흑백 버튼
-        //이벤트 등록해야함
-        //private void button4_Click(object sender, EventArgs e)
-        //{
-        //    pictureBoxIpl2.ImageIpl = CannyEdge(pictureBoxIpl2.ImageIpl);
-        //    pictureBoxIpl2.BringToFront();
-        //}
-        //public IplImage CannyEdge(IplImage src)
-        //{
-        //    canny = new IplImage(src.Size, BitDepth.U8, 1);
-        //    Cv.Canny(src, canny, 100, 255);
-        //    return canny;
-        //}
-        #endregion
-
-        #region 캡처이미지 추출 버튼
-        //find 버튼 이벤트 활성화
-        //private void btn_find_Click(object sender, EventArgs e)
-        //{
-        //    //Mat Screen = null;
-        //    TrySearch();
-        //    //if (match != null) Cv.ReleaseImage(match);
-        //    pictureBoxIpl4.ImageIpl = match;
-        //    pictureBoxIpl4.BringToFront();
-        //}
+        #region 특정이미지 추출
         public IplImage TrySearch()
         {
             match = pictureBoxIpl1.ImageIpl;
@@ -221,6 +136,7 @@ namespace Vision
             if (pictureBoxIpl1.Image != null)
             {
                 Bitmap croppedBitmap = new Bitmap(pictureBoxIpl1.Image);
+
                 croppedBitmap = croppedBitmap.Clone(
                         new Rectangle(minloc.X, minloc.Y, templit.Width, templit.Height),
                         System.Drawing.Imaging.PixelFormat.DontCare);
@@ -266,8 +182,94 @@ namespace Vision
         }
         #endregion
 
+        #region 캡처이미지 저장 버튼
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            string save_name = DateTime.Now.ToString("yy.MM.dd_hhmmss");
+
+            now = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            Cv.SaveImage("../capture/" + save_name + ".png", src);
+
+            ipl = new IplImage("../capture/" + save_name + ".png", LoadMode.AnyColor);
+
+            pictureBoxIpl2.ImageIpl = ipl;
+
+            pntCurrentPicbox.X = 0;
+            pntCurrentPicbox.Y = 0;
+
+            Enabled_true();
+        }
+        #endregion
+
+        #region 캡처이미지 삭제 버튼
+        private void btn_del_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //삭제할 파일들이 있는 경로 설정
+                string deletePath = (@"../capture/");
+                DirectoryInfo di = new DirectoryInfo(deletePath);
+
+                //삭제할 경로에 파일이 존재한다면
+                if (di.Exists)
+                {
+                    FileInfo[] files = di.GetFiles();
+
+                    foreach (FileInfo file in files)
+                    {
+                        //날짜비교
+                        if (now.CompareTo(file.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")) == 0)
+                        {
+                            if (System.Text.RegularExpressions.Regex.IsMatch(file.Name, ".png"))
+                            {
+                                File.Delete(di + "\\" + file.Name);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            pictureBoxIpl2.ImageIpl = null;
+            pictureBoxIpl1.BringToFront();
+
+            Enabled_false();
+        }
+        #endregion
+
+        #region 캡처이미지 흑백 버튼
+        //이벤트 등록해야함
+        //private void btn_BnW_Click(object sender, EventArgs e)
+        //{
+        //    pictureBoxIpl2.ImageIpl = CannyEdge(pictureBoxIpl2.ImageIpl);
+        //    pictureBoxIpl2.BringToFront();
+        //}
+        //public IplImage CannyEdge(IplImage src)
+        //{
+        //    canny = new IplImage(src.Size, BitDepth.U8, 1);
+        //    Cv.Canny(src, canny, 100, 255);
+        //    return canny;
+        //}
+        #endregion
+
+        #region 캡처이미지 추출 버튼
+        //find 버튼 이벤트 활성화
+        //private void btn_find_Click(object sender, EventArgs e)
+        //{
+        //    //Mat Screen = null;
+        //    TrySearch();
+        //    //if (match != null) Cv.ReleaseImage(match);
+        //    pictureBoxIpl4.ImageIpl = match;
+        //    pictureBoxIpl4.BringToFront();
+        //}
+        #endregion
+
         #region 캡처이미지 원본 버튼
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_Origin_Click(object sender, EventArgs e)
         {
             pictureBoxIpl2.ImageIpl = ipl;
             pntCurrentPicbox.X = 0;
@@ -276,12 +278,12 @@ namespace Vision
         #endregion
         
         #region 캡처이미지 확대 버튼
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_Expand_Click(object sender, EventArgs e)
         {
-            Image img = pictureBoxIpl2.Image;
+            Image img     = pictureBoxIpl2.Image;
             Bitmap bmpMod = new Bitmap((img.Width * 5)/4, img.Height * 5 / 4);
 
-            Graphics g = Graphics.FromImage(bmpMod);
+            Graphics g    = Graphics.FromImage(bmpMod);
 
             g.DrawImage(img, 0, 0, bmpMod.Width, bmpMod.Height);
             g.Dispose();
@@ -312,11 +314,11 @@ namespace Vision
         #endregion
 
         #region 캡처이미지 축소 버튼
-        private void button3_Click(object sender, EventArgs e)
+        private void btn_Shrink_Click(object sender, EventArgs e)
         {
-            Image img = pictureBoxIpl2.Image;
+            Image img     = pictureBoxIpl2.Image;
             Bitmap bmpmod = new Bitmap(img.Width / 5 * 4, img.Height / 5 * 4);
-            Graphics g = Graphics.FromImage(bmpmod);
+            Graphics g    = Graphics.FromImage(bmpmod);
 
             g.DrawImage(img, 0, 0, bmpmod.Width, bmpmod.Height);
             g.Dispose();
@@ -344,8 +346,6 @@ namespace Vision
             #endregion
         }
         #endregion
-        
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
         #region 캡처이미지 이동
         private void PictureBox1_Paint(object sender, PaintEventArgs e)
@@ -358,7 +358,7 @@ namespace Vision
                 pictureBoxIpl2.Focus();
             }
         }
-                
+
         #region 이미지 이동 클릭 Down
         private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -376,7 +376,7 @@ namespace Vision
             {
                 pntCurrentPicbox.X = pntCurrentPicbox.X + e.X - pntMouseClick.X;
                 pntCurrentPicbox.Y = pntCurrentPicbox.Y + e.Y - pntMouseClick.Y;
-                
+
                 if (pntCurrentPicbox.X > 0)
                 {
                     pntCurrentPicbox.X = 0;
@@ -410,29 +410,32 @@ namespace Vision
         #endregion
 
         #endregion
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
         #region Enabled_false
         private void Enabled_false()
         {
-            btn_del.Enabled = false;
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button3.Enabled = false;
-            button4.Enabled = false;
+            btn_del.Enabled     = false;
+            btn_Origin.Enabled  = false;
+            btn_Expand.Enabled  = false;
+            btn_Shrink.Enabled  = false;
+            btn_BnW.Enabled     = false;
         }
         #endregion
 
         #region Enabled_true
         private void Enabled_true()
         {
-            btn_del.Enabled = true;
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button3.Enabled = true;
-            button4.Enabled = true;
+            btn_del.Enabled     = true;
+            btn_Origin.Enabled  = true;
+            btn_Expand.Enabled  = true;
+            btn_Shrink.Enabled  = true;
+            btn_BnW.Enabled     = true;
         }
+        #endregion
 
-        private void button5_Click(object sender, EventArgs e)
+        #region 최대화 버튼
+        private void btn_Max_Click(object sender, EventArgs e)
         {
 
                 if (FormBorderStyle == FormBorderStyle.Sizable)

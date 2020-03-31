@@ -32,21 +32,19 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxIpl1 = new OpenCvSharp.UserInterface.PictureBoxIpl();
             this.btn_save = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_Expand = new System.Windows.Forms.Button();
+            this.btn_Shrink = new System.Windows.Forms.Button();
             this.pictureBoxIpl2 = new OpenCvSharp.UserInterface.PictureBoxIpl();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_Origin = new System.Windows.Forms.Button();
             this.btn_del = new System.Windows.Forms.Button();
             this.btn_Live = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.pictureBoxIpl3 = new OpenCvSharp.UserInterface.PictureBoxIpl();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_BnW = new System.Windows.Forms.Button();
+            this.btn_Max = new System.Windows.Forms.Button();
             this.btn_find = new System.Windows.Forms.Button();
             this.pictureBoxIpl4 = new OpenCvSharp.UserInterface.PictureBoxIpl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -76,27 +74,27 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // button2
+            // btn_Expand
             // 
-            this.button2.Font = new System.Drawing.Font("굴림", 20F);
-            this.button2.Location = new System.Drawing.Point(1554, 565);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(200, 100);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "확대";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Expand.Font = new System.Drawing.Font("굴림", 20F);
+            this.btn_Expand.Location = new System.Drawing.Point(1554, 565);
+            this.btn_Expand.Name = "btn_Expand";
+            this.btn_Expand.Size = new System.Drawing.Size(200, 100);
+            this.btn_Expand.TabIndex = 2;
+            this.btn_Expand.Text = "확대";
+            this.btn_Expand.UseVisualStyleBackColor = true;
+            this.btn_Expand.Click += new System.EventHandler(this.btn_Expand_Click);
             // 
-            // button3
+            // btn_Shrink
             // 
-            this.button3.Font = new System.Drawing.Font("굴림", 20F);
-            this.button3.Location = new System.Drawing.Point(1554, 715);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(200, 100);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "축소";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_Shrink.Font = new System.Drawing.Font("굴림", 20F);
+            this.btn_Shrink.Location = new System.Drawing.Point(1554, 715);
+            this.btn_Shrink.Name = "btn_Shrink";
+            this.btn_Shrink.Size = new System.Drawing.Size(200, 100);
+            this.btn_Shrink.TabIndex = 3;
+            this.btn_Shrink.Text = "축소";
+            this.btn_Shrink.UseVisualStyleBackColor = true;
+            this.btn_Shrink.Click += new System.EventHandler(this.btn_Shrink_Click);
             // 
             // pictureBoxIpl2
             // 
@@ -111,16 +109,16 @@
             this.pictureBoxIpl2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             this.pictureBoxIpl2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
-            // button1
+            // btn_Origin
             // 
-            this.button1.Font = new System.Drawing.Font("굴림", 20F);
-            this.button1.Location = new System.Drawing.Point(1554, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 100);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "원본";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_Origin.Font = new System.Drawing.Font("굴림", 20F);
+            this.btn_Origin.Location = new System.Drawing.Point(1554, 415);
+            this.btn_Origin.Name = "btn_Origin";
+            this.btn_Origin.Size = new System.Drawing.Size(200, 100);
+            this.btn_Origin.TabIndex = 5;
+            this.btn_Origin.Text = "원본";
+            this.btn_Origin.UseVisualStyleBackColor = true;
+            this.btn_Origin.Click += new System.EventHandler(this.btn_Origin_Click);
             // 
             // btn_del
             // 
@@ -144,38 +142,30 @@
             this.btn_Live.UseVisualStyleBackColor = true;
             this.btn_Live.Click += new System.EventHandler(this.btn_Live_Click);
             // 
-            // button4
+            // btn_BnW
             // 
-            this.button4.Location = new System.Drawing.Point(1554, 353);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "흑백";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
+            this.btn_BnW.Location = new System.Drawing.Point(1554, 333);
+            this.btn_BnW.Name = "btn_BnW";
+            this.btn_BnW.Size = new System.Drawing.Size(75, 23);
+            this.btn_BnW.TabIndex = 8;
+            this.btn_BnW.Text = "흑백";
+            this.btn_BnW.UseVisualStyleBackColor = true;
+            this.btn_BnW.Visible = false;
             // 
-            // pictureBoxIpl3
+            // btn_Max
             // 
-            this.pictureBoxIpl3.Location = new System.Drawing.Point(160, 65);
-            this.pictureBoxIpl3.Name = "pictureBoxIpl3";
-            this.pictureBoxIpl3.Size = new System.Drawing.Size(1200, 900);
-            this.pictureBoxIpl3.TabIndex = 9;
-            this.pictureBoxIpl3.TabStop = false;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(1679, 353);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "최대화";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btn_Max.Location = new System.Drawing.Point(1554, 362);
+            this.btn_Max.Name = "btn_Max";
+            this.btn_Max.Size = new System.Drawing.Size(75, 23);
+            this.btn_Max.TabIndex = 10;
+            this.btn_Max.Text = "최대화";
+            this.btn_Max.UseVisualStyleBackColor = true;
+            this.btn_Max.Visible = false;
+            this.btn_Max.Click += new System.EventHandler(this.btn_Max_Click);
             // 
             // btn_find
             // 
-            this.btn_find.Location = new System.Drawing.Point(1424, 353);
+            this.btn_find.Location = new System.Drawing.Point(1554, 304);
             this.btn_find.Name = "btn_find";
             this.btn_find.Size = new System.Drawing.Size(75, 23);
             this.btn_find.TabIndex = 11;
@@ -210,15 +200,14 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBoxIpl4);
             this.Controls.Add(this.btn_find);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.pictureBoxIpl3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btn_Max);
+            this.Controls.Add(this.btn_BnW);
             this.Controls.Add(this.btn_Live);
             this.Controls.Add(this.btn_del);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Origin);
             this.Controls.Add(this.pictureBoxIpl2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_Shrink);
+            this.Controls.Add(this.btn_Expand);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.pictureBoxIpl1);
             this.Name = "Form1";
@@ -228,7 +217,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -240,15 +228,14 @@
         private System.Windows.Forms.Timer timer1;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl1;
         private System.Windows.Forms.Button btn_save;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_Expand;
+        private System.Windows.Forms.Button btn_Shrink;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Origin;
         private System.Windows.Forms.Button btn_del;
         private System.Windows.Forms.Button btn_Live;
-        private System.Windows.Forms.Button button4;
-        private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl3;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_BnW;
+        private System.Windows.Forms.Button btn_Max;
         private System.Windows.Forms.Button btn_find;
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl4;
         private System.Windows.Forms.PictureBox pictureBox1;
